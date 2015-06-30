@@ -57,3 +57,6 @@ docs/_build/
 
 # PyBuilder
 target/
+
+.sass-cache
+web/app/static/stylesheets

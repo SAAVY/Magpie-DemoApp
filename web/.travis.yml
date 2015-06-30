@@ -1,0 +1,11 @@
+language: python
+python:
+  - "2.7"
+env:
+  - FLASK=0.10.1
+install:
+  - ./install.sh
+script:
+  - ./build.sh
+notifications:
+  slack: fydpsaavy:haAycUdAeGxxztOPa095IpHl
