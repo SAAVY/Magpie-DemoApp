@@ -1,0 +1,41 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/fixes.html" as fixes %}
+{% import "bootstrap/utils.html" as util %}
+
+{% block content %}
+<div class="container">
+	<h1 class="magpie-title">Magpie Demo Application</h1>
+
+	{{util.flashed_messages()}}
+	{{ wtf.quick_form(form, button_map={'submit_button': 'primary'}) }}
+	<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+	<div class="json-output">
+	{% if json_output %}
+		{% if display_url %}
+			<div class="display-url">
+				<h3>Displaying metadata for URL:</h3>
+				<h4><a href="display_url">{{ display_url}}</a></h4>
+			</div>
+		{% endif %}
+		<label class="json-label control-label">JSON Output:</label>
+		<div class="well well-lg">
+		<pre><code class="json">{{ json_output }}</code></pre>
+		 </div>
+	{% endif %}
+	</div>
+
+</div>
+{% endblock %}
+
+{% block head %}
+<title>{% block title %}Magpie Demo{% endblock %}</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/index.css') }}">
+<script type="text/javascript" src="{{url_for('static', filename='lib/jquery-2.1.4.min.js') }}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='lib/highlight/highlight.pack.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/highlight/styles/github.css') }}">
+<script type="text/javascript" src="{{url_for('static', filename='js/main.js') }}"></script>
+{{super()}}
+{{fixes.ie8()}}
+{% endblock %}
