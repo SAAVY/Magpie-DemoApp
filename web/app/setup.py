@@ -1,5 +1,4 @@
 import json
-import requests
 
 from flask import flash
 from flask import Flask
@@ -13,6 +12,7 @@ from flask_wtf.csrf import CsrfProtect
 from wtforms import SubmitField
 from wtforms import TextField
 from wtforms.validators import ValidationError
+import requests
 
 import config
 from constants import StatusCode
@@ -53,9 +53,8 @@ def create_app(configfile=None):
         return json_output
 
     def show_response_errors(response_json):
-        print response_json
-        if (response_json['status'] != StatusCode.OK):
-            flash("ERROR: " + response_json['error_message'], 'error')
+        if (response_json['status'] != StatusCode.OK and response_json['error_message']):
+            flash("ERROR %d: %s" % (response_json['status'], response_json['error_message']), 'error')
             return True
         return False
 
@@ -77,11 +76,11 @@ def create_app(configfile=None):
         if src_url:
             json = get_response(src_url)
             json_output = make_pretty_json(json)
-            display_url = json['sanitized_url']
+            display_url = json['url']
             if not show_response_errors(json):
-                return render_template('index.html', form=form, json_output=json_output, display_url=display_url)
+                return render_template('base.html', form=form, json_output=json_output, json=json, display_url=display_url)
 
-        return render_template('index.html', form=form)
+        return render_template('base.html', form=form)
 
     return app
 

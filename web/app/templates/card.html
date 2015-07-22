@@ -1,0 +1,58 @@
+{% macro body() -%}
+	{% block card %}
+	{% if json %}
+
+		{% if json['media'] and json['media']['data'] and json['media']['data'][0]['iframe'] %}
+			<div class="card has-media">
+		{% elif json['images'] and json['images']['data'] %}
+			<div class="card has-images">
+		{% else %}
+			<div class="card no-media">
+		{% endif %}
+			<div class="header">
+				{% if json['favicon'] %}
+					<img class="favicon" src="{{ json['favicon'] }}"/>
+				{% endif %}
+
+				{% if json['provider_url'] %}
+				<div class="website-name">
+					<p >{{ json['provider_url'] }}</p>
+				</div>
+				{% endif %}
+			</div>
+			<div class="left-col">
+				{% if json['media'] and json['media']['data'] and json['media']['data'][0]['iframe'] %}
+					<div class="media"> {{ json['media']['data'][0]['iframe']|safe }}</div>
+				{% elif json['images'] and json['images']['data'] %}
+					<div class="images">
+	<!-- 				{% for i in range(json['images']['data']|length) %}
+						<img class="image{{i}}" src="{{ json['images']['data'][i]['url']|safe }}"> </img>
+					{% endfor %}
+
+	-->				
+						<img class="image{{0}}" src="{{ json['images']['data'][0]['url']|safe }}"> </img>
+					</div>
+				{% endif %}
+			</div>
+			<div class="right-col">
+				{% if json['title'] %}
+					<h2 class="title"> {{ json['title'] }}</h2>
+				{% endif %}
+				{% if json['description'] %}
+					<p class="desc"> {{ json['description']|truncate(300) }}</p>
+				{% endif %}
+				{% if json['provider_url'] and json['url'] %}
+					<div class="read_more">
+						<a href="{{ json['url'] }} "> See more on {{ json['provider_url'] }}</a>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+		
+	{% endif %}
+	{% endblock %}
+{%- endmacro %}
+
+{% macro css() -%}
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/card.css') }}">
+{%- endmacro %}
