@@ -1,0 +1,13 @@
+language: python
+python:
+  - "2.7"
+env:
+  - FLASK=0.10.1 && WEB_DIR=web
+before_install:
+  - cd $WEB_DIR
+install:
+  - ./install.sh
+script:
+  - ./build.sh
+notifications:
+  slack: fydpsaavy:haAycUdAeGxxztOPa095IpHl
