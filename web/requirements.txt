@@ -2,8 +2,6 @@ flake8
 flask==0.10.1
 flask_bootstrap
 flask_wtf
-lxml
 nose
 requests
-wikipedia
 wtforms
