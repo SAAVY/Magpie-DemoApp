@@ -76,7 +76,7 @@ def create_app(configfile=None):
         if src_url:
             json = get_response(src_url)
             json_output = make_pretty_json(json)
-            display_url = json['url']
+            display_url = json['data']['url']
             if not show_response_errors(json):
                 return render_template('base.html', form=form, json_output=json_output, json=json, display_url=display_url)
 
