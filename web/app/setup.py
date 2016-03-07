@@ -36,7 +36,7 @@ class MetadataRequestForm(Form):
     submit_button = SubmitField('Create Metadata')
 
 
-def create_app(configfile=None):
+def create_app():
     app = Flask(__name__)
     Bootstrap(app)
     app.config['SECRET_KEY'] = 'devkey'

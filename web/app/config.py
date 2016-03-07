@@ -1,9 +1,9 @@
-IS_DEV = True
+IS_DEV = False
 
 PORT_NUMBER = 8000
 
 DEV_API_URL = "http://localhost:5000/website"
-PROD_API_URL = ""  # TODO: Change prod api url
+PROD_API_URL = "http://localhost:8002/website"
 
 
 class StatusCode(object):
